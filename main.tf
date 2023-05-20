@@ -12,7 +12,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "mtc-rg" {
-  name     = "RG-20230404-learn-terraform-dev-project"
+  name     = "RG-20230520-learn-terraform-dev-project"
   location = "Southeast Asia"
   tags = {
     environment = "dev"
@@ -20,7 +20,7 @@ resource "azurerm_resource_group" "mtc-rg" {
 }
 
 resource "azurerm_virtual_network" "mtc-vn" {
-  name                = "vnet20230404x01"
+  name                = "vnet20230520x01"
   resource_group_name = azurerm_resource_group.mtc-rg.name
   location            = azurerm_resource_group.mtc-rg.location
   address_space       = ["10.123.0.0/16"]
@@ -30,14 +30,14 @@ resource "azurerm_virtual_network" "mtc-vn" {
 }
 
 resource "azurerm_subnet" "mtc-subnet" {
-  name                 = "subnet20230405x01"
+  name                 = "subnet20230520x01"
   resource_group_name  = azurerm_resource_group.mtc-rg.name
   virtual_network_name = azurerm_virtual_network.mtc-vn.name
   address_prefixes     = ["10.123.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "mtc-sg" {
-  name                = "secgrp20230405x01"
+  name                = "secgrp20230520x01"
   location            = azurerm_resource_group.mtc-rg.location
   resource_group_name = azurerm_resource_group.mtc-rg.name
 
@@ -47,7 +47,7 @@ resource "azurerm_network_security_group" "mtc-sg" {
 }
 
 resource "azurerm_network_security_rule" "mtc-sr" {
-  name                        = "secrule20230405x01"
+  name                        = "secrule20230520x01"
   priority                    = 100
   direction                   = "Inbound"
   access                      = "Allow"
@@ -66,7 +66,7 @@ resource "azurerm_subnet_network_security_group_association" "mtc-ssga" {
 }
 
 resource "azurerm_public_ip" "mtc-ip" {
-  name                = "publicip20230405x01"
+  name                = "publicip20230520x01"
   resource_group_name = azurerm_resource_group.mtc-rg.name
   location            = azurerm_resource_group.mtc-rg.location
   allocation_method   = "Dynamic"
@@ -77,7 +77,7 @@ resource "azurerm_public_ip" "mtc-ip" {
 }
 
 resource "azurerm_network_interface" "mtc-nic" {
-  name                = "nic20230405x01"
+  name                = "nic20230520x01"
   location            = azurerm_resource_group.mtc-rg.location
   resource_group_name = azurerm_resource_group.mtc-rg.name
 
@@ -94,7 +94,7 @@ resource "azurerm_network_interface" "mtc-nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "mtc-vm" {
-  name                = "linuxvm20230405x01"
+  name                = "linuxvm20230520x01"
   resource_group_name = azurerm_resource_group.mtc-rg.name
   location            = azurerm_resource_group.mtc-rg.location
   size                = "Standard_B1s"
